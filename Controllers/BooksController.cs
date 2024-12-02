@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Bruj_Tudor_Lab2_EB.Data;
 using Bruj_Tudor_Lab2_EB.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bruj_Tudor_Lab2_EB.Controllers
 {
+    [Authorize(Roles = "Employee")]
     public class BooksController : Controller
     {
         private readonly Bruj_Tudor_Lab2_EBContext _context;
@@ -18,6 +20,7 @@ namespace Bruj_Tudor_Lab2_EB.Controllers
         }
 
         // GET: Books
+        [AllowAnonymous]
         public async Task<IActionResult> Index(
         string sortOrder,
         string currentFilter,
@@ -74,6 +77,7 @@ namespace Bruj_Tudor_Lab2_EB.Controllers
 
 
         // GET: Books/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Book == null)
