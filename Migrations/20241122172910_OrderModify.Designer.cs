@@ -4,6 +4,7 @@ using Bruj_Tudor_Lab2_EB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bruj_Tudor_Lab2_EB.Migrations
 {
     [DbContext(typeof(Bruj_Tudor_Lab2_EBContext))]
-    partial class Bruj_Tudor_Lab2_EBContextModelSnapshot : ModelSnapshot
+    [Migration("20241122172910_OrderModify")]
+    partial class OrderModify
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace Bruj_Tudor_Lab2_EB.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(6,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -140,60 +142,14 @@ namespace Bruj_Tudor_Lab2_EB.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.PublishedBook", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<int>("BookID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PublisherID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("BookID");
-
-                    b.HasIndex("PublisherID");
-
-                    b.ToTable("PublishedBooks");
-                });
-
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Publisher", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
-
-                    b.Property<string>("Adress")
-                        .IsRequired()
-                        .HasMaxLength(70)
-                        .HasColumnType("nvarchar(70)");
-
-                    b.Property<string>("PublisherName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Publisher");
-                });
-
             modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Book", b =>
                 {
                     b.HasOne("Bruj_Tudor_Lab2_EB.Models.Authors", "Author")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("AuthorID");
 
                     b.HasOne("Bruj_Tudor_Lab2_EB.Models.Genre", "Genre")
-                        .WithMany("Books")
+                        .WithMany()
                         .HasForeignKey("GenreID");
 
                     b.Navigation("Author");
@@ -216,50 +172,14 @@ namespace Bruj_Tudor_Lab2_EB.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.PublishedBook", b =>
-                {
-                    b.HasOne("Bruj_Tudor_Lab2_EB.Models.Book", "Book")
-                        .WithMany("PublishedBooks")
-                        .HasForeignKey("BookID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Bruj_Tudor_Lab2_EB.Models.Publisher", "Publisher")
-                        .WithMany("PublishedBooks")
-                        .HasForeignKey("PublisherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Authors", b =>
-                {
-                    b.Navigation("Books");
-                });
-
             modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Book", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("PublishedBooks");
                 });
 
             modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Customer", b =>
                 {
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Genre", b =>
-                {
-                    b.Navigation("Books");
-                });
-
-            modelBuilder.Entity("Bruj_Tudor_Lab2_EB.Models.Publisher", b =>
-                {
-                    b.Navigation("PublishedBooks");
                 });
 #pragma warning restore 612, 618
         }

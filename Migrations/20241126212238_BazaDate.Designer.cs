@@ -4,6 +4,7 @@ using Bruj_Tudor_Lab2_EB.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bruj_Tudor_Lab2_EB.Migrations
 {
     [DbContext(typeof(Bruj_Tudor_Lab2_EBContext))]
-    partial class Bruj_Tudor_Lab2_EBContextModelSnapshot : ModelSnapshot
+    [Migration("20241126212238_BazaDate")]
+    partial class BazaDate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

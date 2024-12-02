@@ -10,6 +10,6 @@ namespace Bruj_Tudor_Lab2_EB.Models
 
         public int ID { get; set; }
         public string Name { get; set; }
-
+        public ICollection<Book>? Books { get; set; }
     }
 }

@@ -35,15 +35,19 @@ namespace Bruj_Tudor_Lab2_EB.Controllers
                 return NotFound();
             }
 
-            var authors = await _context.Authors
+            var author = await _context.Authors
+                .Include(a => a.Books)
+                .ThenInclude(b => b.Genre) 
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (authors == null)
+
+            if (author == null)
             {
                 return NotFound();
             }
 
-            return View(authors);
+            return View(author);
         }
+
 
         // GET: Authors/Create
         public IActionResult Create()
