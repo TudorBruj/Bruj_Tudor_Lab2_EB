@@ -1,12 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Bruj_Tudor_Lab2_EB.Data;
+using Bruj_Tudor_Lab2_EB.Hubs;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<Bruj_Tudor_Lab2_EBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Bruj_Tudor_Lab2_EBContext") ?? throw new InvalidOperationException("Connection string 'Bruj_Tudor_Lab2_EBContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -34,5 +37,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/Chat");
 
 app.Run();
