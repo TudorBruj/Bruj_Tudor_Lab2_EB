@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using Bruj_Tudor_Lab2_EB.Data;
 using Bruj_Tudor_Lab2_EB.Models;
 using Bruj_Tudor_Lab2_EB.Models.LibraryViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Bruj_Tudor_Lab2_EB.Controllers
 {
+    [Authorize(Policy = "OnlySales")]
     public class PublishersController : Controller
     {
         private readonly Bruj_Tudor_Lab2_EBContext _context;
